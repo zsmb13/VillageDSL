@@ -1,6 +1,6 @@
-package simple.nodsl.homemade
+package co.zsmb.villagedsl.simple.nodsl.homemade
 
-import simple.models.*
+import co.zsmb.villagedsl.simple.models.*
 
 fun main(args: Array<String>) {
 

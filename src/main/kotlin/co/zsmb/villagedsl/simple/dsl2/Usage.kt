@@ -1,6 +1,6 @@
-package simple.dsl2
+package co.zsmb.villagedsl.simple.dsl2
 
-import simple.models.Person
+import co.zsmb.villagedsl.simple.models.Person
 
 
 fun main(args: Array<String>) {

@@ -1,4 +1,4 @@
-package simple.models
+package co.zsmb.villagedsl.simple.models
 
 data class Person(val name: String, val age: Int)
 

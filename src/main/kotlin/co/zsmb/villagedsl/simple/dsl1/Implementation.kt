@@ -1,6 +1,6 @@
-package simple.dsl1
+package co.zsmb.villagedsl.simple.dsl1
 
-import simple.models.*
+import co.zsmb.villagedsl.simple.models.*
 
 
 class PersonBuilder(initialName: String, initialAge: Int) {

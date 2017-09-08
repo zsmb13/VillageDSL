@@ -1,4 +1,4 @@
-package simple
+package co.zsmb.villagedsl.simple
 
 import org.junit.Assert.assertEquals
 import java.io.ByteArrayOutputStream

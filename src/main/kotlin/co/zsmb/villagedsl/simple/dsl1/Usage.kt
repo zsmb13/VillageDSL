@@ -1,4 +1,4 @@
-package simple.dsl1
+package co.zsmb.villagedsl.simple.dsl1
 
 
 fun main(args: Array<String>) {

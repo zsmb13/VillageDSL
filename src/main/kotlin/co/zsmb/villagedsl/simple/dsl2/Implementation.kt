@@ -1,6 +1,6 @@
-package simple.dsl2
+package co.zsmb.villagedsl.simple.dsl2
 
-import simple.models.*
+import co.zsmb.villagedsl.simple.models.*
 
 
 class HouseBuilder {

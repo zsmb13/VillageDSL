@@ -1,6 +1,6 @@
-package simple.nodsl.javastyle
+package co.zsmb.villagedsl.simple.nodsl.javastyle
 
-import simple.models.*
+import co.zsmb.villagedsl.simple.models.*
 
 fun main(args: Array<String>) {
 
