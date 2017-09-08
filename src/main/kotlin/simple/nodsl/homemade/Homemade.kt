@@ -6,20 +6,44 @@ fun main(args: Array<String>) {
 
     val village = Village(listOf(
             House(listOf(
-                    Person("Emily", 31),
-                    Person("Hannah", 27),
-                    Person("Alex", 21),
-                    Person("Daniel", 17)
+                    Person(
+                            name = "Emily",
+                            age = 31
+                    ),
+                    Person(
+                            name = "Hannah",
+                            age = 27
+                    ),
+                    Person(
+                            name = "Alex",
+                            age = 21
+                    ),
+                    Person(
+                            name = "Daniel",
+                            age = 17
+                    )
             )),
             House(listOf(
-                    Person("Joe", 48)
+                    Person(
+                            name = "Joe",
+                            age = 48
+                    )
             )),
             House(listOf(
             )),
             House(listOf(
-                    Person("Sarah", 40),
-                    Person("Tom", 26),
-                    Person("Holly", 52)
+                    Person(
+                            name = "Sarah",
+                            age = 40
+                    ),
+                    Person(
+                            name = "Tom",
+                            age = 26
+                    ),
+                    Person(
+                            name = "Holly",
+                            age = 52
+                    )
             ))
     ))
 
