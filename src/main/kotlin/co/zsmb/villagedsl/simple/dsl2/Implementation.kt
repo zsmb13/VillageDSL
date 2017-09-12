@@ -1,7 +1,8 @@
 package co.zsmb.villagedsl.simple.dsl2
 
-import co.zsmb.villagedsl.simple.models.*
-
+import co.zsmb.villagedsl.simple.models.House
+import co.zsmb.villagedsl.simple.models.Person
+import co.zsmb.villagedsl.simple.models.Village
 
 class HouseBuilder {
 

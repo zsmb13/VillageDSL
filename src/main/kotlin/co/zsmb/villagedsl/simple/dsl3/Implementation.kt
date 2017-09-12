@@ -1,6 +1,8 @@
 package co.zsmb.villagedsl.simple.dsl3
 
-import co.zsmb.villagedsl.simple.models.*
+import co.zsmb.villagedsl.simple.models.House
+import co.zsmb.villagedsl.simple.models.Person
+import co.zsmb.villagedsl.simple.models.Village
 
 object village {
     infix fun containing(houses: List<House>) = Village(houses)
@@ -42,6 +44,7 @@ class HouseListBuilder {
 
     infix fun house.of(people: List<Person>) = with(people)
 
+    @Suppress("UNUSED_PARAMETER")
     infix fun house.without(p: people) {
         houses += House(listOf())
     }

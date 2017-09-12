@@ -1,7 +1,8 @@
 package co.zsmb.villagedsl.simple.dsl1
 
-import co.zsmb.villagedsl.simple.models.*
-
+import co.zsmb.villagedsl.simple.models.House
+import co.zsmb.villagedsl.simple.models.Person
+import co.zsmb.villagedsl.simple.models.Village
 
 class PersonBuilder(initialName: String, initialAge: Int) {
     var name: String = initialName

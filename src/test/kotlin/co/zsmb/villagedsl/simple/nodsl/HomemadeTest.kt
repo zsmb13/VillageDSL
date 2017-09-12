@@ -1,10 +1,10 @@
 package co.zsmb.villagedsl.simple.nodsl
 
-import org.junit.Test
 import co.zsmb.villagedsl.simple.nodsl.homemade.main
 import co.zsmb.villagedsl.simple.testMain
+import org.junit.Test
 
-class HomemadeDSLKtTest {
+class HomemadeTest {
 
     @Test
     fun test() = testMain(::main)

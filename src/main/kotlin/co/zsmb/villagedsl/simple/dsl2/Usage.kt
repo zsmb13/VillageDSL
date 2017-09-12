@@ -2,7 +2,6 @@ package co.zsmb.villagedsl.simple.dsl2
 
 import co.zsmb.villagedsl.simple.models.Person
 
-
 fun main(args: Array<String>) {
 
     val v = village {

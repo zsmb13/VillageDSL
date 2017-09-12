@@ -1,6 +1,5 @@
 package co.zsmb.villagedsl.simple.dsl1
 
-
 fun main(args: Array<String>) {
 
     val v = village {
