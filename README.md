@@ -1,6 +1,6 @@
 # Village DSL [![Build Status](https://travis-ci.org/zsmb13/VillageDSL.svg?branch=master)](https://travis-ci.org/zsmb13/VillageDSL)
 
-This repository contains samples of various Kotlin DSL designs. It consists of two main exercises: a simple and an advanced model, and it offers various DSL solutions for constructing structures of these models. Both models aim to simulate a fantasy game of some sorts where you have to describe a village and everything it contains.
+This repository contains samples of various Kotlin DSL designs. It consists of two main exercises: a simple and an advanced model, and it offers various DSL solutions for constructing structures of these models. Both models aim to simulate a fantasy game of some sorts where you have to describe a village and its contents.
 
 # The simple model
 
@@ -134,7 +134,7 @@ The same can be done using the `unaryMinus` operator, as you can see in the full
 
 ### [A slightly over-the-top DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl3)
 
-Pushing the limits of the Kotlin language, using some dummy `object`s and infix functions can you can get pretty far with making your DSL fluent, and read almost like regular text. (A good official example is the [`KotlinTest`](https://github.com/kotlintest/kotlintest) library.)
+Pushing the limits of the Kotlin language, using some dummy `object`s and infix functions can you can get pretty far with making your DSL fluent, and read almost like sentences. (A good official example is the [`KotlinTest`](https://github.com/kotlintest/kotlintest) library.)
 
 ```kotlin
 val v = village containing houses {
@@ -168,29 +168,102 @@ interface Armor : Item
 data class Shield(val defense: Double) : Armor  
 ```
 
+Just to reiterate before getting into the various approaches: the examples here are just short snippets. The full example is included in the source files linked below.
+
 ## Approaches without DSLs
 
 Again, let's take a look at how we can create instances of the above models and nest them appropriately without defining a DSL to do so first.
 
-### Traditional Java style construction
+### [Traditional Java style construction](./src/main/kotlin/co/zsmb/villagedsl/advanced/nodsl/javastyle/JavaStyle.kt)
 
-TODO
+This approach doesn't really deserve any more explanation than it got at the simple example. It's tedious to write, hard to both read and modify.
 
-### A "home-made" DSL
+```kotlin
+val houses = mutableListOf<House>()
 
-TODO
+val people1 = mutableListOf<Person>()
+people1.add(Person("Alice", 31))
+people1.add(Person("Bob", 45))
+val items1 = mutableListOf<Item>()
+items1.add(Gold(500))
+val house1 = House(people1, items1)
+houses.add(house1)
+
+val village = Village(houses)
+```
+
+### [A "home-made" DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/nodsl/homemade/Homemade.kt)
+
+Nesting these calls gets you a bit closer to a DSL, but this solution has the same issues as it had with the simple model. `listOf` calls are ugly, commas are easy to miss and difficult to maintain.
+
+```kotlin
+val village = Village(listOf(
+            House(listOf(
+                    Person(
+                            name = "Alice",
+                            age = 31
+                    ),
+                    Person(
+                            name = "Bob",
+                            age = 45
+                    )
+            ), listOf(
+                    Gold(
+                            amount = 500
+                    )
+            ))
+))
+```
 
 ## DSL approaches
 
-TODO
+### [A traditional DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/dsl1)
 
-### A traditional DSL
+Same old, same old. Lambdas with receivers and builder classes. This is the no-thrills DSL for this problem.
 
-TODO
+```kotlin
+val v = village {
+    house {
+        person {
+            name = "Alice"
+            age = 31
+        }
+        person {
+            name = "Bob"
+            age = 45
+        }
+        gold {
+            amount = 500
+        }
+    }
+}
+```
 
-### A weird, overkill DSL
+### [A weird, overkill DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/dsl2)
 
-TODO
+Here's something you probably shouldn't do. I included the entire village in this sample code so that you can see more of what this solution includes. While this is a really weird and unnecessary DSL, the extensible structure of its implementation is worth looking at.
+
+```kotlin
+val v = village {
+    house {
+        "Alice" age 31
+        "Bob" age 45
+        500.gold
+    }
+    house {
+        sword with strength value 24.2
+        sword with strength level 16.7
+        shield with defense value 15.3
+    }
+    house()
+    house {
+        "Charles" age 52
+        2500.gold
+        sword
+        shield
+    }
+}
+```
 
 # Tests
 
