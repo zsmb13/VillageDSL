@@ -5,6 +5,10 @@ import co.zsmb.villagedsl.advanced.models.Item
 import co.zsmb.villagedsl.advanced.models.Person
 import co.zsmb.villagedsl.advanced.models.Village
 
+@DslMarker
+annotation class AdvancedDSL1
+
+@AdvancedDSL1
 class PersonBuilder(initialName: String, initialAge: Int) {
     var name: String = initialName
     var age: Int = initialAge
@@ -12,8 +16,10 @@ class PersonBuilder(initialName: String, initialAge: Int) {
     fun build(): Person {
         return Person(name, age)
     }
+
 }
 
+@AdvancedDSL1
 class HouseBuilder {
 
     internal val people = mutableListOf<Person>()
@@ -31,6 +37,7 @@ class HouseBuilder {
 
 }
 
+@AdvancedDSL1
 class VillageBuilder {
 
     private val houses = mutableListOf<House>()
@@ -47,6 +54,16 @@ class VillageBuilder {
 
     fun build(): Village {
         return Village(houses)
+    }
+
+    /**
+     * This method shadows the [co.zsmb.villagedsl.advanced.dsl1.village] method when inside the scope
+     * of a [VillageBuilder], so that villages can't be nested.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    @Deprecated(level = DeprecationLevel.ERROR,
+            message = "Villages can't be nested.")
+    fun village(param: () -> Unit = {}) {
     }
 
 }
