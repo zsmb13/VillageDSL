@@ -1,10 +1,10 @@
 # Village DSL [![Build Status](https://travis-ci.org/zsmb13/VillageDSL.svg?branch=master)](https://travis-ci.org/zsmb13/VillageDSL)
 
-This repository contains samples of various Kotlin DSL designs. It consists of two main exercises: a simple and an advanced model, and it offers various DSL solutions for constructing structures of these models. Both models aim to simulate a fantasy game of some sorts where you have to describe a village and its contents.
+This repository contains samples of various Kotlin DSL designs. It consists of two main exercises: a simple and an advanced model, and it offers various DSL solutions for constructing structures within these models. Both models aim to simulate a fantasy game of some sorts where you have to describe a village and its contents.
 
 # The simple model
 
-The [simple exercise](./src/main/kotlin/co/zsmb/villagedsl/simple) uses just three [model objects](./src/main/kotlin/co/zsmb/villagedsl/simple/models/Models.kt): the village, the houses it contains, and the people who are in those houses. Here are the classes representing these concepts:
+The [simple exercise](./src/main/kotlin/co/zsmb/villagedsl/simple) uses just three [model objects](./src/main/kotlin/co/zsmb/villagedsl/simple/models/Models.kt): the village, the houses it contains, and the people who are in those houses. Here are the data classes representing these concepts:
 
 ```kotlin
 data class Person(val name: String, val age: Int)
@@ -18,9 +18,9 @@ Note that the examples included are larger than the code samples you see here be
 
 First, let's see how we can construct a hierarchy of these models without defining a DSL.
 
-### [Traditional Java style construction](./src/main/kotlin/co/zsmb/villagedsl/simple/nodsl/javastyle/JavaStyle.kt)
+#### [Traditional Java style construction](./src/main/kotlin/co/zsmb/villagedsl/simple/nodsl/javastyle/JavaStyle.kt)
 
-This is the approach that we'd take if we had to use Java, just translated to Kotlin syntax. We create mutable lists for everything, add items to them one by one on separate lines, and then create the objects that contain these lists.
+This is essentially the approach that we'd take if we had to use Java, and it's translated to Kotlin syntax. We create mutable lists for everything, add items to them one by one on separate lines, and then create the objects that contain these lists.
 
 ```kotlin
 val houses = mutableListOf<House>()
@@ -37,9 +37,9 @@ houses.add(house1)
 val village = Village(houses)
 ```
 
-This has all the usual pain points that building a hierarchy in Java entails: we can't really see the hierarchy in the code, and we have to follow a weird, unnaturally twisted structure with our code because of the limitations of the API. More importantly, this style of code gets complicated to read and modify quite quickly. 
+This has all the usual pain points that constructing a hierarchy in Java entails: we can't really see the hierarchy itself in the code, and we have to follow a weird, unnaturally twisted structure with our code because of the limitations of the API. More importantly, this style of code gets complicated to read and modify quite quickly.
 
-### [Slightly improved construction, with more idiomatic Kotlin](./src/main/kotlin/co/zsmb/villagedsl/simple/nodsl/kotlinstyle/KotlinStyle.kt)
+#### [Slightly improved construction, with more idiomatic Kotlin](./src/main/kotlin/co/zsmb/villagedsl/simple/nodsl/kotlinstyle/KotlinStyle.kt)
 
 We can improve on this by quite a bit by just nesting some of these calls and using the factory methods for collections provided by the Kotlin standard library.
 
@@ -53,9 +53,9 @@ val house1 = House(listOf(
 val village = Village(listOf(house1))
 ```
 
-The code we have here is easier to write, read and maintain than the previous one. It still doesn't show hierarchy very well however, and it will face some of the same problems as the previous code when the problem gets larger. 
+The code we have here is easier to write, read and maintain than the previous one. It still doesn't show hierarchy very well however, and it will face some of the same problems as the previous code when the described model gets larger. 
 
-### [A "home-made" DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/nodsl/homemade/Homemade.kt)
+#### [A "home-made" DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/nodsl/homemade/Homemade.kt)
 
 This "poor man's DSL" solution is mostly included for good measure. It makes use of the previously mentioned collection factory methods, named parameters, and some formatting to create something resembling a DSL. 
 
@@ -86,12 +86,11 @@ The problem here is that modifying the code is tedious compared to a real DSL, s
 
 ## DSL approaches
 
-Below are various DSL approaches. Neither of these are supposed to be *the* solution to the posed exercise, they are just various examples of DSLs you can use to solve your problem. This document only contains small samples of how to use these DSLs, check the linked packages for the implementations and full examples. 
+Below are various DSL approaches. Neither of these are supposed to be *the* solution to the posed exercise, they are just various examples of DSLs you can use to solve the problem. This document only contains small samples of how to use these DSLs, check the linked packages for the implementations and full examples. 
 
-### [The usual DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl1)
+#### [The usual DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl1)
 
-To start, here's the DSL that follows the conventions most often used by DSL creators. 
-This makes use of [function literals with receivers](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver), as well as [default](https://kotlinlang.org/docs/reference/functions.html#default-arguments) and [named](https://kotlinlang.org/docs/reference/functions.html#named-arguments) arguments.
+To start, here's the DSL that follows the conventions most often used by DSL authors: it makes use of [function literals with receivers](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver) that put you into the scope of builders that have the appropriate properties, as well as [default](https://kotlinlang.org/docs/reference/functions.html#default-arguments) and [named](https://kotlinlang.org/docs/reference/functions.html#named-arguments) arguments.
 
 ```kotlin
 val v = village {
@@ -109,13 +108,13 @@ val v = village {
 }
 ```
 
-Note that while above a variety of different ways for calling the same `person` function is showcased, sticking to one of these styles at a time is obviously recommended.
+Note that while the code here showcases a variety of different ways for calling the same `person` function, sticking to one of these styles at a time is of course recommended.
 
 You can see that even this simplest DSL gets rid of the modification woes of the non-DSL approaches, as the blocks here can be moved around freely and easily.
 
-### [A more interesting DSL with operator overloading](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl2)
+#### [A more interesting DSL with operator overloading](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl2)
 
-Instead of doing the same thing over and over on every level of the hierarchy as before, we can construct some of our models (usually the leafs of the hierarchy) more easily by just calling their constructors, and adding them to the right parent using overloaded operators. (A good example of this is how text can be appended to elements in the [`kotlinx.html`](https://github.com/Kotlin/kotlinx.html) library.)
+Instead of doing the same thing over and over on every level of the hierarchy as before, we can construct some of our models (usually the leafs of the hierarchy) in a more direct way by just calling their constructors, and adding them to the right parent using overloaded operators. (A good example of this is how text can be appended to elements in the [`kotlinx.html`](https://github.com/Kotlin/kotlinx.html) library.)
 
 ```kotlin
 val v = village {
@@ -130,9 +129,9 @@ val v = village {
 
 This is done by using an overloaded `unaryPlus` operator, that's defined as a [member](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl2/Implementation.kt#L15) of the class responsible for creating a `House`. This way, both the list containing people that will be in the `House` and the constructed `Person` object are in scope inside the function. 
 
-The same can be done using the `unaryMinus` operator, as you can see in the full sample. This can provide a nice "list" feeling in your DSL.
+The same can be done using the `unaryMinus` operator, as you can see in the full sample. This can provide a nice "list" look in your DSL.
 
-### [A slightly over-the-top DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl3)
+#### [A slightly over-the-top DSL](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl3)
 
 Pushing the limits of the Kotlin language, using some dummy `object`s and infix functions can you can get pretty far with making your DSL fluent, and read almost like sentences. (A good official example is the [`KotlinTest`](https://github.com/kotlintest/kotlintest) library.)
 
@@ -148,6 +147,8 @@ val v = village containing houses {
         
 }
 ```
+
+Note that while in the case of the "usual DSL" it's verified that the blocks are nested in the expected order (by the [@DslMarker annotation](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-dsl-marker/index.html), see in the example [here](./src/main/kotlin/co/zsmb/villagedsl/simple/dsl1/Implementation.kt#L7)), these potentially chained infix function calls can lead to code that compiles but does nothing sensible.
 
 # The advanced model
 
@@ -168,15 +169,15 @@ interface Armor : Item
 data class Shield(val defense: Double) : Armor  
 ```
 
-Just to reiterate before getting into the various approaches: the examples here are just short snippets. The full example is included in the source files linked below.
+Just to reiterate before getting into the various approaches: the code examples here are just short snippets. The full example is included in the linked source files.
 
 ## Approaches without DSLs
 
-Again, let's take a look at how we can create instances of the above models and nest them appropriately without defining a DSL to do so first.
+Again, let's first take a look at how we can create instances of the above models and nest them appropriately without defining a DSL.
 
-### [Traditional Java style construction](./src/main/kotlin/co/zsmb/villagedsl/advanced/nodsl/javastyle/JavaStyle.kt)
+#### [Traditional Java style construction](./src/main/kotlin/co/zsmb/villagedsl/advanced/nodsl/javastyle/JavaStyle.kt)
 
-This approach doesn't really deserve any more explanation than it got at the simple example. It's tedious to write, hard to both read and modify.
+This approach doesn't really deserve any more explanation than it got at the simple model. It's tedious to write, hard to both read and modify.
 
 ```kotlin
 val houses = mutableListOf<House>()
@@ -192,7 +193,7 @@ houses.add(house1)
 val village = Village(houses)
 ```
 
-### [A "home-made" DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/nodsl/homemade/Homemade.kt)
+#### [A "home-made" DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/nodsl/homemade/Homemade.kt)
 
 Nesting these calls gets you a bit closer to a DSL, but this solution has the same issues as it had with the simple model. `listOf` calls are ugly, commas are easy to miss and difficult to maintain.
 
@@ -217,7 +218,7 @@ val village = Village(listOf(
 
 ## DSL approaches
 
-### [A traditional DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/dsl1)
+#### [A traditional DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/dsl1)
 
 Same old, same old. Lambdas with receivers and builder classes. This is the no-thrills DSL for this problem.
 
@@ -239,7 +240,7 @@ val v = village {
 }
 ```
 
-### [A weird, overkill DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/dsl2)
+#### [A weird, overkill DSL](./src/main/kotlin/co/zsmb/villagedsl/advanced/dsl2)
 
 Here's something you probably shouldn't do. I included the entire village in this sample code so that you can see more of what this solution includes. While this is a really weird and unnecessary DSL, the extensible structure of its implementation is worth looking at.
 
