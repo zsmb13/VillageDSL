@@ -7,7 +7,6 @@ import co.zsmb.villagedsl.simple.models.Village
 @DslMarker
 annotation class SimpleDSL2
 
-@SimpleDSL2
 class HouseBuilder {
 
     private val people = mutableListOf<Person>()
@@ -16,25 +15,28 @@ class HouseBuilder {
         return House(people)
     }
 
+    @SimpleDSL2
     operator fun Person.unaryPlus() {
         people += this
     }
 
+    @SimpleDSL2
     operator fun Person.unaryMinus() {
         people += this
     }
 
 }
 
-@SimpleDSL2
 class VillageBuilder {
 
     private val houses = mutableListOf<House>()
 
+    @SimpleDSL2
     operator fun House.unaryPlus() {
         houses += this
     }
 
+    @SimpleDSL2
     fun house(setup: HouseBuilder.() -> Unit = {}) {
         val houseBuilder = HouseBuilder()
         houseBuilder.setup()
@@ -57,6 +59,7 @@ class VillageBuilder {
 
 }
 
+@SimpleDSL2
 fun village(setup: VillageBuilder.() -> Unit): Village {
     val villageBuilder = VillageBuilder()
     villageBuilder.setup()

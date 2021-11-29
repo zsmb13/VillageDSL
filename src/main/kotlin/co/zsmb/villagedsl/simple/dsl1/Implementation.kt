@@ -9,7 +9,10 @@ annotation class SimpleDsl1
 
 @SimpleDsl1
 class PersonBuilder(initialName: String, initialAge: Int) {
+    @SimpleDsl1
     var name: String = initialName
+
+    @SimpleDsl1
     var age: Int = initialAge
 
     fun build(): Person {
@@ -17,7 +20,6 @@ class PersonBuilder(initialName: String, initialAge: Int) {
     }
 }
 
-@SimpleDsl1
 class HouseBuilder {
 
     private val people = mutableListOf<Person>()
@@ -26,6 +28,7 @@ class HouseBuilder {
         return House(people)
     }
 
+    @SimpleDsl1
     fun person(name: String = "", age: Int = 0, setup: PersonBuilder.() -> Unit = {}) {
         val personBuilder = PersonBuilder(name, age)
         personBuilder.setup()
@@ -34,7 +37,6 @@ class HouseBuilder {
 
 }
 
-@SimpleDsl1
 class VillageBuilder {
 
     private val houses = mutableListOf<House>()
@@ -43,6 +45,7 @@ class VillageBuilder {
         houses += this
     }
 
+    @SimpleDsl1
     fun house(setup: HouseBuilder.() -> Unit = {}) {
         val houseBuilder = HouseBuilder()
         houseBuilder.setup()

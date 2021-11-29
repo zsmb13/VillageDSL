@@ -5,8 +5,8 @@ import co.zsmb.villagedsl.advanced.models.Item
 import co.zsmb.villagedsl.advanced.models.Shield
 import co.zsmb.villagedsl.advanced.models.Sword
 
-@AdvancedDSL1
 class GoldBuilder(initialAmount: Int) {
+    @AdvancedDSL1
     var amount = initialAmount
 
     fun build(): Item {
@@ -14,14 +14,15 @@ class GoldBuilder(initialAmount: Int) {
     }
 }
 
+@AdvancedDSL1
 fun HouseBuilder.gold(amount: Int = 0, setup: GoldBuilder.() -> Unit) {
     val builder = GoldBuilder(amount)
     builder.setup()
     items += builder.build()
 }
 
-@AdvancedDSL1
 class SwordBuilder(initialStrength: Double) {
+    @AdvancedDSL1
     var strength = initialStrength
 
     fun build(): Item {
@@ -29,13 +30,13 @@ class SwordBuilder(initialStrength: Double) {
     }
 }
 
+@AdvancedDSL1
 fun HouseBuilder.sword(strength: Double = 0.0, setup: SwordBuilder.() -> Unit = {}) {
     val builder = SwordBuilder(strength)
     builder.setup()
     items += builder.build()
 }
 
-@AdvancedDSL1
 class ShieldBuilder(initialDefense: Double) {
     var defense = initialDefense
 
@@ -44,6 +45,7 @@ class ShieldBuilder(initialDefense: Double) {
     }
 }
 
+@AdvancedDSL1
 fun HouseBuilder.shield(defense: Double = 0.0, setup: ShieldBuilder.() -> Unit = {}) {
     val builder = ShieldBuilder(defense)
     builder.setup()

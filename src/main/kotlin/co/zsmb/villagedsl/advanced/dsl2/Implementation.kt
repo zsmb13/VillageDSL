@@ -2,6 +2,9 @@ package co.zsmb.villagedsl.advanced.dsl2
 
 import co.zsmb.villagedsl.advanced.models.*
 
+@DslMarker
+annotation class AdvancedDSL2
+
 class HouseBuilder {
 
     internal val people = mutableListOf<Person>()
@@ -11,10 +14,12 @@ class HouseBuilder {
         return House(people, items)
     }
 
+    @AdvancedDSL2
     infix fun String.age(age: Int) {
         people.add(Person(this, age))
     }
 
+    @AdvancedDSL2
     val Int.gold: Unit
         get() {
             items += Gold(this)
@@ -27,10 +32,12 @@ class VillageBuilder {
 
     private val houses = mutableListOf<House>()
 
+    @AdvancedDSL2
     operator fun House.unaryPlus() {
         houses += this
     }
 
+    @AdvancedDSL2
     fun house(setup: HouseBuilder.() -> Unit = {}) {
         val houseBuilder = HouseBuilder()
         houseBuilder.setup()
@@ -43,6 +50,7 @@ class VillageBuilder {
 
 }
 
+@AdvancedDSL2
 fun village(setup: VillageBuilder.() -> Unit): Village {
     val villageBuilder = VillageBuilder()
     villageBuilder.setup()

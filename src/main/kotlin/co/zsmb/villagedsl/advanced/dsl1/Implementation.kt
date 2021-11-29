@@ -8,9 +8,11 @@ import co.zsmb.villagedsl.advanced.models.Village
 @DslMarker
 annotation class AdvancedDSL1
 
-@AdvancedDSL1
 class PersonBuilder(initialName: String, initialAge: Int) {
+    @AdvancedDSL1
     var name: String = initialName
+
+    @AdvancedDSL1
     var age: Int = initialAge
 
     fun build(): Person {
@@ -19,7 +21,6 @@ class PersonBuilder(initialName: String, initialAge: Int) {
 
 }
 
-@AdvancedDSL1
 class HouseBuilder {
 
     internal val people = mutableListOf<Person>()
@@ -29,6 +30,7 @@ class HouseBuilder {
         return House(people, items)
     }
 
+    @AdvancedDSL1
     fun person(name: String = "", age: Int = 0, setup: PersonBuilder.() -> Unit = {}) {
         val personBuilder = PersonBuilder(name, age)
         personBuilder.setup()
@@ -37,7 +39,6 @@ class HouseBuilder {
 
 }
 
-@AdvancedDSL1
 class VillageBuilder {
 
     private val houses = mutableListOf<House>()
@@ -46,6 +47,7 @@ class VillageBuilder {
         houses += this
     }
 
+    @AdvancedDSL1
     fun house(setup: HouseBuilder.() -> Unit = {}) {
         val houseBuilder = HouseBuilder()
         houseBuilder.setup()
@@ -68,6 +70,7 @@ class VillageBuilder {
 
 }
 
+@AdvancedDSL1
 fun village(setup: VillageBuilder.() -> Unit): Village {
     val villageBuilder = VillageBuilder()
     villageBuilder.setup()
