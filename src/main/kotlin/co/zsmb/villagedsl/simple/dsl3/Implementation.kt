@@ -16,6 +16,7 @@ object village {
 @SimpleDsl3
 object house
 
+@SimpleDsl3
 class PeopleListBuilder {
 
     val people = mutableListOf<Person>()

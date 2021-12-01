@@ -20,6 +20,7 @@ class PersonBuilder(initialName: String, initialAge: Int) {
     }
 }
 
+@SimpleDsl1
 class HouseBuilder {
 
     private val people = mutableListOf<Person>()
@@ -37,6 +38,7 @@ class HouseBuilder {
 
 }
 
+@SimpleDsl1
 class VillageBuilder {
 
     private val houses = mutableListOf<House>()
@@ -61,8 +63,10 @@ class VillageBuilder {
      * of a [VillageBuilder], so that villages can't be nested.
      */
     @Suppress("UNUSED_PARAMETER")
-    @Deprecated(level = DeprecationLevel.ERROR,
-            message = "Villages can't be nested.")
+    @Deprecated(
+        level = DeprecationLevel.ERROR,
+        message = "Villages can't be nested."
+    )
     fun village(param: () -> Unit = {}) {
     }
 
