@@ -1,19 +1,13 @@
-group 'co.zsmb'
-version '1.0-SNAPSHOT'
-
 buildscript {
-    ext.kotlin_version = '1.6.0'
-
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21"
     }
 }
 
 apply plugin: 'kotlin'
-
 apply from: 'testformatter.gradle'
 
 repositories {
