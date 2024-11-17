@@ -14,9 +14,7 @@ inline fun captureStdOut(block: () -> Unit): String {
     return outStream.toString()
 }
 
-inline fun testMain(main: (Array<String>) -> Unit) {
-    val out = captureStdOut {
-        main(arrayOf())
-    }
+inline fun testMain(main: () -> Unit) {
+    val out = captureStdOut { main() }
     assertEquals(expected, out)
 }

@@ -4,7 +4,7 @@ import co.zsmb.villagedsl.simple.models.House
 import co.zsmb.villagedsl.simple.models.Person
 import co.zsmb.villagedsl.simple.models.Village
 
-fun main(args: Array<String>) {
+fun main() {
 
     val house1 = House(listOf(
             Person("Emily", 31),

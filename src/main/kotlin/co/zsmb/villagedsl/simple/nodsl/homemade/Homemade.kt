@@ -1,8 +1,10 @@
 package co.zsmb.villagedsl.simple.nodsl.homemade
 
-import co.zsmb.villagedsl.simple.models.*
+import co.zsmb.villagedsl.simple.models.House
+import co.zsmb.villagedsl.simple.models.Person
+import co.zsmb.villagedsl.simple.models.Village
 
-fun main(args: Array<String>) {
+fun main() {
 
     val village = Village(listOf(
             House(listOf(

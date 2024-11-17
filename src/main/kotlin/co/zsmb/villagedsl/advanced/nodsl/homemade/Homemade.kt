@@ -1,8 +1,13 @@
 package co.zsmb.villagedsl.advanced.nodsl.homemade
 
-import co.zsmb.villagedsl.advanced.models.*
+import co.zsmb.villagedsl.advanced.models.Gold
+import co.zsmb.villagedsl.advanced.models.House
+import co.zsmb.villagedsl.advanced.models.Person
+import co.zsmb.villagedsl.advanced.models.Shield
+import co.zsmb.villagedsl.advanced.models.Sword
+import co.zsmb.villagedsl.advanced.models.Village
 
-fun main(args: Array<String>) {
+fun main() {
 
     val village = Village(listOf(
             House(listOf(

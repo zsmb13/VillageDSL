@@ -1,6 +1,6 @@
 package co.zsmb.villagedsl.advanced.dsl1
 
-fun main(args: Array<String>) {
+fun main() {
 
     val v = village {
         house {

@@ -1,6 +1,6 @@
 package co.zsmb.villagedsl.simple.dsl3
 
-fun main(args: Array<String>) {
+fun main() {
 
     val v = village containing houses {
 

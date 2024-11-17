@@ -60,7 +60,7 @@ class HouseListBuilder {
     @Suppress("UNUSED_PARAMETER")
     @SimpleDsl3
     infix fun house.without(p: people) {
-        houses += House(listOf())
+        houses += House(emptyList())
     }
 
 }
